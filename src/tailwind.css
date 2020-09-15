@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sidebar-spotify::-webkit-scrollbar {
+  width: 8px;
+  background-color: #040404;
+}
+
+.sidebar-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #535353;
+}
+
+.content-spotify::-webkit-scrollbar {
+  width: 8px;
+  background-color: #121212;
+}
+
+.content-spotify::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #535353;
+}
