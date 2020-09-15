@@ -13,6 +13,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "spotify-green": "#1DB954",
         "spotify-gray": {
           400: "#B3B3B3",
           500: "#565656",
@@ -21,6 +22,11 @@ module.exports = {
           800: "#121212",
           900: "#040404",
         },
+      },
+      spacing: {
+        14: "3.5rem",
+        22: "5.5rem",
+        200: "50rem",
       },
       lineHeight: {
         "extra-loose": 2.5,
