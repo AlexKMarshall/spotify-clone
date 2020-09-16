@@ -31,12 +31,16 @@ module.exports = {
       lineHeight: {
         "extra-loose": 2.5,
       },
+      gridTemplateColumns: {
+        "album-cards": "repeat(auto-fill, minmax(10.5rem, 1fr))",
+      },
     },
   },
   variants: {
     backgroundColor: ({ after }) => after(["group-hover"]),
     textColor: ({ after }) => after(["group-hover"]),
     gradientColorStops: ({ after }) => after(["group-hover"]),
+    visibility: ({ after }) => after(["group-hover"]),
   },
   plugins: [],
 };

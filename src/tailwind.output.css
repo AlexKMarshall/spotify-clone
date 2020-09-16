@@ -23406,6 +23406,14 @@ video {
   visibility: hidden;
 }
 
+.group:hover .group-hover\:visible {
+  visibility: visible;
+}
+
+.group:hover .group-hover\:invisible {
+  visibility: hidden;
+}
+
 .whitespace-normal {
   white-space: normal;
 }
@@ -24095,6 +24103,10 @@ video {
 
 .grid-cols-none {
   grid-template-columns: none;
+}
+
+.grid-cols-album-cards {
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
 }
 
 .col-auto {
@@ -49238,6 +49250,14 @@ video {
     visibility: hidden;
   }
 
+  .group:hover .sm\:group-hover\:visible {
+    visibility: visible;
+  }
+
+  .group:hover .sm\:group-hover\:invisible {
+    visibility: hidden;
+  }
+
   .sm\:whitespace-normal {
     white-space: normal;
   }
@@ -49927,6 +49947,10 @@ video {
 
   .sm\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .sm\:grid-cols-album-cards {
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
   }
 
   .sm\:col-auto {
@@ -74985,6 +75009,14 @@ video {
     visibility: hidden;
   }
 
+  .group:hover .md\:group-hover\:visible {
+    visibility: visible;
+  }
+
+  .group:hover .md\:group-hover\:invisible {
+    visibility: hidden;
+  }
+
   .md\:whitespace-normal {
     white-space: normal;
   }
@@ -75674,6 +75706,10 @@ video {
 
   .md\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .md\:grid-cols-album-cards {
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
   }
 
   .md\:col-auto {
@@ -100732,6 +100768,14 @@ video {
     visibility: hidden;
   }
 
+  .group:hover .lg\:group-hover\:visible {
+    visibility: visible;
+  }
+
+  .group:hover .lg\:group-hover\:invisible {
+    visibility: hidden;
+  }
+
   .lg\:whitespace-normal {
     white-space: normal;
   }
@@ -101421,6 +101465,10 @@ video {
 
   .lg\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .lg\:grid-cols-album-cards {
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
   }
 
   .lg\:col-auto {
@@ -126479,6 +126527,14 @@ video {
     visibility: hidden;
   }
 
+  .group:hover .xl\:group-hover\:visible {
+    visibility: visible;
+  }
+
+  .group:hover .xl\:group-hover\:invisible {
+    visibility: hidden;
+  }
+
   .xl\:whitespace-normal {
     white-space: normal;
   }
@@ -127168,6 +127224,10 @@ video {
 
   .xl\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .xl\:grid-cols-album-cards {
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
   }
 
   .xl\:col-auto {
