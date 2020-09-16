@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import "./tailwind.output.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { AuthProvider } from "./context/auth-context";
+import AppProviders from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
+    <AppProviders>
       <App />
-    </AuthProvider>
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById("root")
 );

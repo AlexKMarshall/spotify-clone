@@ -20,7 +20,7 @@ const bootstrapAppData = async () => {
 
 const AuthContext = React.createContext();
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = (props) => {
   const {
     data: user,
     status,
@@ -49,9 +49,7 @@ const AuthProvider = ({ children }) => {
   }
 
   if (isSuccess) {
-    return (
-      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={value} {...props} />;
   }
 
   throw new Error(`Unhandled status: ${status}`);
