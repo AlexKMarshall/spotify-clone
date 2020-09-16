@@ -1,33 +1,60 @@
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useEffect, useContext, useMemo, useCallback } from "react";
+import LoadingIndictator from "../components/LoadingIndicator";
+import { client } from "../utils/api-client";
+import { extractHash } from "../utils/hash";
+import { useAsync } from "../utils/hooks";
 
-// Get the hash of the url
-const hash = window.location.hash
-  .substring(1)
-  .split("&")
-  .reduce(function (initial, item) {
-    if (item) {
-      const parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
-window.location.hash = "";
+const bootstrapAppData = async () => {
+  let user = null;
+
+  const hash = extractHash();
+  const token = hash.access_token;
+
+  if (token) {
+    const data = await client("me", { token });
+    user = { ...data, token };
+  }
+
+  return user;
+};
 
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState("");
+  const {
+    data: user,
+    status,
+    error,
+    isLoading,
+    isIdle,
+    isError,
+    isSuccess,
+    run,
+  } = useAsync();
 
   useEffect(() => {
-    const _token = hash.access_token;
-    if (_token) {
-      setToken(_token);
-    }
-  }, []);
+    const appDataPromise = bootstrapAppData();
+    run(appDataPromise);
+  }, [run]);
 
-  const value = useMemo(() => ({ token }), [token]);
+  const value = useMemo(() => ({ user }), [user]);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  if (isLoading || isIdle) {
+    return <LoadingIndictator />;
+  }
+
+  if (isError) {
+    console.error("there was some kind of error", error);
+    return <div>There was an error</div>;
+  }
+
+  if (isSuccess) {
+    return (
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    );
+  }
+
+  throw new Error(`Unhandled status: ${status}`);
 };
 
 const useAuth = () => {
@@ -38,4 +65,13 @@ const useAuth = () => {
   return context;
 };
 
-export { AuthProvider, useAuth };
+const useClient = () => {
+  const { user } = useAuth();
+  const token = user?.token;
+  return useCallback(
+    (endpoint, config) => client(endpoint, { ...config, token }),
+    [token]
+  );
+};
+
+export { AuthProvider, useAuth, useClient };
