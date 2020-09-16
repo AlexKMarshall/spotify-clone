@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "../test/test-utils";
-import UnauthenticatedApp from "../UnauthenticatedApp";
+import App from "../App";
 
 it("displays link to login to spotify", async () => {
-  await render(<UnauthenticatedApp />);
+  await render(<App />, { user: null });
 
   expect(
     screen.getByRole("link", { name: /login to spotify/i })

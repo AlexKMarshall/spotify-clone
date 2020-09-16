@@ -9,7 +9,7 @@ const UserProfile = () => {
     <button className="flex items-center py-1 pr-1 rounded-full hover:bg-spotify-gray-600">
       <img src={avatarUrl} alt="avatar" className="w-6 h-6 rounded-full" />
 
-      <span className="ml-2 font-bold text-white hover:underlin">
+      <span className="ml-2 font-bold text-white hover:underline">
         {user.display_name}
       </span>
       <span className="ml-1">
