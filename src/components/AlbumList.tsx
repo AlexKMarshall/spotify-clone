@@ -1,5 +1,6 @@
 import React from 'react';
 import { Album } from '../types/Album';
+import { Artist } from '../types/Artist';
 
 type PropTypes = {
   heading: string;
@@ -29,7 +30,7 @@ const AlbumList = ({ heading, albums }: PropTypes) => {
   );
 };
 
-const AlbumCard = ({ name, images }: Album) => (
+const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
   <div className="relative p-5 rounded-md bg-spotify-gray-600 group">
     <a href="/">
       <img src={images[1].url} alt={`${name} Cover`} />
@@ -37,9 +38,13 @@ const AlbumCard = ({ name, images }: Album) => (
     <a href="/">
       <h3 className="mt-4 overflow-x-hidden text-base font-bold tracking-wide text-white whitespace-no-wrap">{name}</h3>
     </a>
-    <a href="/" className="text-xs hover:underline">
-      Ben Platt
-    </a>
+    <div>
+      {artists.map((artist) => (
+        <React.Fragment key={`${albumId}-${artist.id}`}>
+          <ArtistLink artist={artist} />{' '}
+        </React.Fragment>
+      ))}
+    </div>
     <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -50,6 +55,12 @@ const AlbumCard = ({ name, images }: Album) => (
       </svg>
     </button>
   </div>
+);
+
+const ArtistLink = ({ artist }: { artist: Artist }) => (
+  <a href="/" className="text-xs hover:underline">
+    {artist.name}
+  </a>
 );
 
 export default AlbumList;

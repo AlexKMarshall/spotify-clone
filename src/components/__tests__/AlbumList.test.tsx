@@ -16,5 +16,8 @@ it('should render list of albums cards with heading', () => {
   albums.forEach((album) => {
     expect(screen.getByRole('heading', { name: album.name })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: `${album.name} Cover` })).toHaveAttribute('src', album.images[0].url);
+    album.artists.forEach((artist) => {
+      expect(screen.getByRole('link', { name: artist.name })).toBeInTheDocument();
+    });
   });
 });
