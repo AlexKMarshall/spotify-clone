@@ -18,4 +18,10 @@ const read = async (token: string) => {
   return user;
 };
 
-export { create, read };
+const teardown = async () => {
+  for (const key in userStore) {
+    delete userStore[key];
+  }
+};
+
+export { create, read, teardown };

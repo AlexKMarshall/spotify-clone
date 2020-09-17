@@ -6,19 +6,17 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 type Headers = Record<string, string>;
 
-type ClientConfig = {
+type ClientNamedConfig = {
   data?: Object;
   token?: string;
   headers?: Headers;
 };
 
-type ClientCustomConfig = {
-  [key: string]: string;
-};
+export type ClientConfig = ClientNamedConfig & Record<string, string>;
 
 const client = async <T>(
   endpoint: string,
-  { data, token, headers: customHeaders, ...customConfig }: ClientConfig & Partial<ClientCustomConfig> = {},
+  { data, token, headers: customHeaders, ...customConfig }: ClientConfig = {},
 ) => {
   const headers: Headers = {};
   if (token) {

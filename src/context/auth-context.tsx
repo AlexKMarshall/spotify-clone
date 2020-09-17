@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useMemo, useCallback } from 'react';
 import LoadingIndictator from '../components/LoadingIndicator';
-import { client } from '../utils/api-client';
+import { client, ClientConfig } from '../utils/api-client';
 import { extractHash } from '../utils/hash';
 import { useAsync } from '../utils/hooks';
 import { User, AuthUser } from '../types/User';
@@ -59,10 +59,18 @@ const useAuth = () => {
   return context;
 };
 
-const useClient = () => {
+const useClient = <T,>() => {
   const { user } = useAuth();
   const token = user?.token;
-  return useCallback((endpoint, config) => client(endpoint, { ...config, token }), [token]);
+  return useCallback(
+    (endpoint: string, config: ClientConfig = {}) => {
+      if (token) {
+        config.token = token;
+      }
+      return client<T>(endpoint, { ...config });
+    },
+    [token],
+  );
 };
 
 export { AuthProvider, useAuth, useClient };
