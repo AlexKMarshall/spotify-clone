@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import albumCoverBad from "./assets/images/album-cover-bad.jpg";
-import albumCoverSing from "./assets/images/album-cover-sing.jpg";
-import UserProfile from "./components/UserProfile";
+import albumCoverBad from './assets/images/album-cover-bad.jpg';
+import albumCoverSing from './assets/images/album-cover-sing.jpg';
+import UserProfile from './components/UserProfile';
 
 const AuthenticatedApp = () => {
   return (
@@ -21,10 +21,7 @@ const AuthenticatedApp = () => {
           {/* navigation */}
           <ul className="py-6 font-bold">
             <li>
-              <a
-                href="/"
-                className="flex items-center px-4 py-2 mx-2 mt-4 text-white rounded-sm bg-spotify-gray-600"
-              >
+              <a href="/" className="flex items-center px-4 py-2 mx-2 mt-4 text-white rounded-sm bg-spotify-gray-600">
                 <span className="mr-4">
                   {/* This is the active version <svg
                     viewBox="0 0 512 512"
@@ -36,12 +33,7 @@ const AuthenticatedApp = () => {
                       fill="currentColor"
                     ></path>
                   </svg> */}
-                  <svg
-                    viewBox="0 0 512 512"
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                  >
+                  <svg viewBox="0 0 512 512" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                     <path d="M448 463.746h-149.333v-149.333h-85.334v149.333h-149.333v-315.428l192-111.746 192 110.984v316.19z"></path>
                   </svg>
                 </span>
@@ -49,17 +41,9 @@ const AuthenticatedApp = () => {
               </a>
             </li>
             <li>
-              <a
-                href="/"
-                className="flex items-center px-4 py-2 mx-2 mt-4 transition duration-300 hover:text-white"
-              >
+              <a href="/" className="flex items-center px-4 py-2 mx-2 mt-4 transition duration-300 hover:text-white">
                 <span className="mr-4">
-                  <svg
-                    viewBox="0 0 512 512"
-                    className="w-6 h-6"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg viewBox="0 0 512 512" className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M349.714 347.937l93.714 109.969-16.254 13.969-93.969-109.969q-48.508 36.825-109.207 36.825-36.826 0-70.476-14.349t-57.905-38.603-38.603-57.905-14.349-70.476 14.349-70.476 38.603-57.905 57.905-38.603 70.476-14.349 70.476 14.349 57.905 38.603 38.603 57.905 14.349 70.476q0 37.841-14.73 71.619t-40.889 58.921zM224 377.397q43.428 0 80.254-21.461t58.286-58.286 21.461-80.254-21.461-80.254-58.286-58.285-80.254-21.46-80.254 21.46-58.285 58.285-21.46 80.254 21.46 80.254 58.285 58.286 80.254 21.461z"
                       fillRule="evenodd"
@@ -70,17 +54,9 @@ const AuthenticatedApp = () => {
               </a>
             </li>
             <li>
-              <a
-                href="/"
-                className="flex items-center px-4 py-2 mx-2 mt-4 transition duration-300 hover:text-white"
-              >
+              <a href="/" className="flex items-center px-4 py-2 mx-2 mt-4 transition duration-300 hover:text-white">
                 <span className="mr-4">
-                  <svg
-                    viewBox="0 0 512 512"
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                  >
+                  <svg viewBox="0 0 512 512" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                     <path d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"></path>
                   </svg>
                 </span>
@@ -107,28 +83,19 @@ const AuthenticatedApp = () => {
                   ></path>
                 </svg>
               </span>
-              <span className="transition-colors duration-300 group-hover:text-white">
-                Create Playlist
-              </span>
+              <span className="transition-colors duration-300 group-hover:text-white">Create Playlist</span>
             </button>
             {/* Liked song button needs a transition on the gradient background */}
             <button className="flex items-center mt-2 font-bold group">
               <span className="p-1 mr-4 transition-colors duration-300 bg-gradient-to-br from-indigo-900 to-gray-400 group-hover:text-white group-hover:from-indigo-700">
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
                     d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                   ></path>
                 </svg>
               </span>
-              <span className="transition-colors duration-300 group-hover:text-white">
-                Liked Songs
-              </span>
+              <span className="transition-colors duration-300 group-hover:text-white">Liked Songs</span>
             </button>
             <hr className="mt-3 border-spotify-gray-500" />
           </div>
@@ -147,16 +114,9 @@ const AuthenticatedApp = () => {
             </ul>
           </div>
           <div className="mt-4 bg-black">
-            <a
-              href="/"
-              className="flex items-center px-5 py-4 transition-colors duration-300 hover:text-white"
-            >
+            <a href="/" className="flex items-center px-5 py-4 transition-colors duration-300 hover:text-white">
               <span>
-                <svg
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 mr-4"
-                >
+                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-4">
                   <title>Download icon</title>
                   <path
                     d="M12 11.657V6h-1v5.65L9.076 9.414l-.758.65 3.183 3.702 3.195-3.7-.758-.653L12 11.657zM11.5 2C7.358 2 4 5.358 4 9.5c0 4.142 3.358 7.5 7.5 7.5 4.142 0 7.5-3.358 7.5-7.5C19 5.358 15.642 2 11.5 2zm0 14C7.916 16 5 13.084 5 9.5S7.916 3 11.5 3 18 5.916 18 9.5 15.084 16 11.5 16z"
@@ -173,20 +133,14 @@ const AuthenticatedApp = () => {
           <div className="flex items-center justify-between px-6 py-2">
             <div className="flex items-center">
               <button className="bg-black rounded-full">
-                <svg
-                  title="back page"
-                  className="w-10 h-10 text-gray-400 fill-current hover:text-white"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-10 h-10 text-gray-400 fill-current hover:text-white" viewBox="0 0 24 24">
+                  <title>Back</title>
                   <path d="M14.7 15.3a1 1 0 01-1.4 1.4l-4-4a1 1 0 010-1.4l4-4a1 1 0 011.4 1.4L11.42 12l3.3 3.3z" />
                 </svg>
               </button>
               <button className="ml-4 bg-black rounded-full">
-                <svg
-                  title="forward page"
-                  className="w-10 h-10 text-gray-400 fill-current hover:text-white"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-10 h-10 text-gray-400 fill-current hover:text-white" viewBox="0 0 24 24">
+                  <title>Forward</title>
                   <path d="M9.3 8.7a1 1 0 011.4-1.4l4 4a1 1 0 010 1.4l-4 4a1 1 0 01-1.4-1.4l3.29-3.3-3.3-3.3z" />
                 </svg>
               </button>
@@ -197,20 +151,15 @@ const AuthenticatedApp = () => {
             <section className="mt-6">
               <header className="flex items-center justify-between">
                 <a href="/">
-                  <h2 className="text-2xl font-bold text-white hover:underline">
-                    Shortcuts
-                  </h2>
+                  <h2 className="text-2xl font-bold text-white hover:underline">Shortcuts</h2>
                 </a>
-                <a
-                  href="/"
-                  className="text-xs font-bold tracking-wider uppercase hover:underline"
-                >
+                <a href="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
                   See All
                 </a>
               </header>
               <div
                 className="grid grid-rows-1 mt-3 overflow-y-hidden gap-x-3 grid-cols-album-cards"
-                style={{ gridAutoRows: "0px" }}
+                style={{ gridAutoRows: '0px' }}
               >
                 <div className="relative p-5 rounded-md bg-spotify-gray-600 group">
                   <a href="/">
@@ -225,12 +174,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -252,12 +196,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -279,12 +218,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -306,12 +240,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -333,12 +262,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -352,20 +276,15 @@ const AuthenticatedApp = () => {
             <section className="mt-6">
               <header className="flex items-center justify-between">
                 <a href="/">
-                  <h2 className="text-2xl font-bold text-white hover:underline">
-                    Recently Played
-                  </h2>
+                  <h2 className="text-2xl font-bold text-white hover:underline">Recently Played</h2>
                 </a>
-                <a
-                  href="/"
-                  className="text-xs font-bold tracking-wider uppercase hover:underline"
-                >
+                <a href="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
                   See All
                 </a>
               </header>
               <div
                 className="grid grid-rows-1 mt-3 overflow-y-hidden gap-x-3 grid-cols-album-cards"
-                style={{ gridAutoRows: "0px" }}
+                style={{ gridAutoRows: '0px' }}
               >
                 <div className="relative p-5 rounded-md bg-spotify-gray-600 group">
                   <a href="/">
@@ -380,12 +299,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -407,12 +321,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -434,12 +343,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -461,12 +365,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -488,12 +387,7 @@ const AuthenticatedApp = () => {
                     Ben Platt
                   </a>
                   <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                       <path
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -522,12 +416,12 @@ const AuthenticatedApp = () => {
           </div>
           <button className="flex-none ml-3">
             <svg
-              title="like song"
               className="w-5 h-5 text-spotify-green"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
+              <title>Add to favorites</title>
               <path
                 fillRule="evenodd"
                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -539,47 +433,32 @@ const AuthenticatedApp = () => {
         <div className="flex flex-col justify-center flex-1 mx-6">
           <div className="flex justify-center">
             <button>
-              <svg
-                title="shuffle"
-                className="w-4 h-4 text-gray-400 fill-current hover:text-white"
-                viewBox="0 0 20 20"
-              >
+              <svg className="w-4 h-4 text-gray-400 fill-current hover:text-white" viewBox="0 0 20 20">
+                <title>Shuffle</title>
                 <path d="M6.59 12.83L4.4 15c-.58.58-1.59 1-2.4 1H0v-2h2c.29 0 .8-.2 1-.41l2.17-2.18 1.42 1.42zM16 4V1l4 4-4 4V6h-2c-.29 0-.8.2-1 .41l-2.17 2.18L9.4 7.17 11.6 5c.58-.58 1.59-1 2.41-1h2zm0 10v-3l4 4-4 4v-3h-2c-.82 0-1.83-.42-2.41-1l-8.6-8.59C2.8 6.21 2.3 6 2 6H0V4h2c.82 0 1.83.42 2.41 1l8.6 8.59c.2.2.7.41.99.41h2z" />
               </svg>
             </button>
             <button className="ml-8">
-              <svg
-                title="previous track"
-                className="w-6 h-6 text-gray-400 fill-current hover:text-white"
-                viewBox="0 0 20 20"
-              >
+              <svg className="w-6 h-6 text-gray-400 fill-current hover:text-white" viewBox="0 0 20 20">
+                <title>Previous track</title>
                 <path d="M4 5h3v10h3V5zm12 0v10l-9-5 9-5z" />
               </svg>
             </button>
             <button className="ml-8">
-              <svg
-                title="play"
-                className="w-8 h-8 text-gray-400 fill-current hover:text-white"
-                viewBox="0 0 20 20"
-              >
+              <svg className="w-8 h-8 text-gray-400 fill-current hover:text-white" viewBox="0 0 20 20">
+                <title>Play</title>
                 <path d="M2.93 17.07A10 10 0 1117.07 2.93 10 10 0 012.93 17.07zm12.73-1.41A8 8 0 104.34 4.34a8 8 0 0011.32 11.32zM7 6l8 4-8 4V6z" />
               </svg>
             </button>
             <button className="ml-8">
-              <svg
-                title="next track"
-                className="w-6 h-6 text-gray-400 fill-current hover:text-white"
-                viewBox="0 0 20 20"
-              >
+              <svg className="w-6 h-6 text-gray-400 fill-current hover:text-white" viewBox="0 0 20 20">
+                <title>Next track</title>
                 <path d="M13 5h3v10h-3V5zM4 5l9 5-9 5V5z" />
               </svg>
             </button>
             <button className="ml-8">
-              <svg
-                title="repeat"
-                className="w-4 h-4 text-gray-400 fill-current hover:text-white"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-4 h-4 text-gray-400 fill-current hover:text-white" viewBox="0 0 24 24">
+                <title>Repeat</title>
                 <path d="M5.41 16H18a2 2 0 002-2 1 1 0 012 0 4 4 0 01-4 4H5.41l2.3 2.3a1 1 0 01-1.42 1.4l-4-4a1 1 0 010-1.4l4-4a1 1 0 111.42 1.4L5.4 16zM6 8a2 2 0 00-2 2 1 1 0 01-2 0 4 4 0 014-4h12.59l-2.3-2.3a1 1 0 111.42-1.4l4 4a1 1 0 010 1.4l-4 4a1 1 0 01-1.42-1.4L18.6 8H6z" />
               </svg>
             </button>
@@ -593,32 +472,26 @@ const AuthenticatedApp = () => {
         <div className="flex items-center">
           <button>
             <svg
-              title="queue"
               className="w-6 h-6 text-gray-400 fill-current hover:text-white"
               width="24"
               height="24"
               viewBox="0 0 24 24"
             >
+              <title>Queue</title>
               <path d="M0 0h24v24H0z" fill="none" />
               <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z" />
             </svg>
           </button>
           <button className="ml-4">
-            <svg
-              title="devices"
-              className="w-5 h-5 text-gray-400 fill-current hover:text-white"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5 text-gray-400 fill-current hover:text-white" viewBox="0 0 24 24">
+              <title>Devices</title>
               <path fill="none" d="M0 0h24v24H0z" />
               <path d="M3 6h18V4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h3v-2H3V6zm10 6H9v1.78c-.61.55-1 1.33-1 2.22s.39 1.67 1 2.22V20h3v-1.78c.61-.55 1-1.34 1-2.22s-.39-1.67-1-2.22V12zm-2 5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM22 8h-6c-.5 0-1 .5-1 1v10c0 .5.5 1 1 1h6c.5 0 1-.5 1-1V9c0-.5-.5-1-1-1zm-1 10h-4v-8h3v8z" />
             </svg>
           </button>
           <button className="ml-4">
-            <svg
-              title="mute"
-              className="w-5 h-5 text-gray-400 fill-current hover:text-white"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-5 h-5 text-gray-400 fill-current hover:text-white" viewBox="0 0 24 24">
+              <title>Mute</title>
               <path d="M3 9v6h3l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
               <path d="M0 0h24v24H0z" fill="none" />
             </svg>

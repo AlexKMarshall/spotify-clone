@@ -1,6 +1,7 @@
-import faker from "faker";
+import faker from 'faker';
+import { User } from '../types/User';
 
-const buildUser = (overrides) => ({
+const buildUser = (overrides?: Partial<User>): User => ({
   display_name: faker.name.findName(),
   images: [{ url: faker.internet.avatar() }],
   ...overrides,
