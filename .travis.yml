@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "stable"
+script:
+  - yarn build
+  - yarn run test:coverage
+after_script: npx codecov@3

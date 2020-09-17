@@ -6,11 +6,11 @@ const AuthenticatedApp = React.lazy(() => import("./AuthenticatedApp"));
 const UnauthenticatedApp = React.lazy(() => import("./UnauthenticatedApp"));
 
 function App() {
-  const { token } = useAuth();
+  const { user } = useAuth();
 
   return (
     <React.Suspense fallback={<LoadingIndictator />}>
-      {token ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 import albumCoverBad from "./assets/images/album-cover-bad.jpg";
 import albumCoverSing from "./assets/images/album-cover-sing.jpg";
-import avatar from "./assets/images/avatar.jpg";
+import UserProfile from "./components/UserProfile";
 
 const AuthenticatedApp = () => {
   return (
@@ -191,26 +191,7 @@ const AuthenticatedApp = () => {
                 </svg>
               </button>
             </div>
-            <button className="flex items-center py-1 pr-1 rounded-full hover:bg-spotify-gray-600">
-              <img src={avatar} alt="avatar" className="w-6 h-6 rounded-full" />
-
-              <span className="ml-2 font-bold text-white hover:underlin">
-                Alex Marshall
-              </span>
-              <span className="ml-1">
-                <svg
-                  className="w-6 h-6 text-white fill-current"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  <path
-                    className="heroicon-ui"
-                    d="M15.3 9.3a1 1 0 011.4 1.4l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4l3.3 3.29 3.3-3.3z"
-                  />
-                </svg>
-              </span>
-            </button>
+            <UserProfile />
           </div>
           <div className="px-8 overflow-y-auto content-spotify">
             <section className="mt-6">
