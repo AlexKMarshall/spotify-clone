@@ -1,4 +1,9 @@
-import { render as rtlRender, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import {
+  render as rtlRender,
+  RenderOptions as RtlRenderOptions,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { buildAlbum, buildUser } from './generate';
 import * as usersDB from './data/users';
 import * as artistsDB from './data/artists';
@@ -14,7 +19,10 @@ type RenderOptions = {
   artists?: Artist[];
 };
 
-const render = async (ui: React.ReactElement, { user, albums, artists }: RenderOptions = {}) => {
+const render = async (
+  ui: React.ReactElement,
+  { user, albums, artists, ...renderOptions }: RenderOptions & RtlRenderOptions = {},
+) => {
   // if you want to render the app unauthenticated, pass "null" as the user
   user = typeof user === 'undefined' ? await loginAsUser() : user;
   // if you want to render empty collections, pass an empty array as collection value
@@ -24,8 +32,11 @@ const render = async (ui: React.ReactElement, { user, albums, artists }: RenderO
   const returnValue = {
     ...rtlRender(ui, {
       wrapper: AppProviders,
+      ...renderOptions,
     }),
     user,
+    albums,
+    artists,
   };
 
   await waitForLoadingToFinish();
@@ -52,7 +63,6 @@ const populateAlbumsDB = async (albums: Album[]) => {
 };
 
 const getArtistsFromAlbums = (albums: Album[]) => {
-  // console.log(albums);
   const albumArtists = Array.from(
     albums.reduce((collectedArtists, album) => {
       album.artists.forEach((artist) => {
@@ -74,4 +84,4 @@ const waitForLoadingToFinish = () =>
   waitForElementToBeRemoved(() => [...screen.queryAllByLabelText(/loading/i), ...screen.queryAllByText(/loading/i)]);
 
 export * from '@testing-library/react';
-export { render, waitForLoadingToFinish };
+export { render, rtlRender, waitForLoadingToFinish };

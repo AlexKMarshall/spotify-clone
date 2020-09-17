@@ -1,5 +1,4 @@
 import React from 'react';
-import albumCoverSing from '../assets/images/album-cover-sing.jpg';
 import { Album } from '../types/Album';
 
 type PropTypes = {
@@ -30,10 +29,10 @@ const AlbumList = ({ heading, albums }: PropTypes) => {
   );
 };
 
-const AlbumCard = ({ name }: Album) => (
+const AlbumCard = ({ name, images }: Album) => (
   <div className="relative p-5 rounded-md bg-spotify-gray-600 group">
     <a href="/">
-      <img src={albumCoverSing} alt="albumcover" />
+      <img src={images[1].url} alt={`${name} Cover`} />
     </a>
     <a href="/">
       <h3 className="mt-4 overflow-x-hidden text-base font-bold tracking-wide text-white whitespace-no-wrap">{name}</h3>
