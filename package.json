@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^26.0.14",
     "@types/node": "^14.10.3",
@@ -26,7 +26,7 @@
     "start:react": "react-scripts start",
     "prebuild": "NODE_ENV=production run-s build:tailwind",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom-fourteen",
     "test:coverage": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
@@ -52,7 +52,14 @@
     ]
   },
   "devDependencies": {
+    "@types/faker": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
     "faker": "^5.1.0",
-    "msw": "^0.21.2"
+    "msw": "^0.21.2",
+    "prettier": "^2.1.2"
   }
 }
