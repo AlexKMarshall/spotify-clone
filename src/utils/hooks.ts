@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
-// Need to make this more generic and take any number of arguments
 const useSafeDispatch = <A>(dispatch: React.Dispatch<A>) => {
   const mounted = React.useRef(false);
   React.useLayoutEffect(() => {
@@ -80,4 +80,29 @@ const useAsync = (initialState?: State) => {
   };
 };
 
-export { useAsync };
+type ContentRect = Pick<DOMRectReadOnly, 'width' | 'height' | 'top' | 'right' | 'bottom' | 'left'>;
+
+const useResizeObserver = (resizeSubject: React.RefObject<HTMLDivElement>) => {
+  const emptyRect = { width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0 };
+  const [contentRect, setContentRect] = useState<ContentRect>(emptyRect);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      setContentRect(entries[0].contentRect);
+    });
+
+    if (resizeSubject.current) {
+      resizeObserver.observe(resizeSubject.current);
+    }
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [resizeSubject]);
+
+  return contentRect;
+};
+
+export { useAsync, useResizeObserver };

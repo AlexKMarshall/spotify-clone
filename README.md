@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/AlexKMarshall/spotify-clone/branch/master/graph/badge.svg)](https://codecov.io/gh/AlexKMarshall/spotify-clone)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
