@@ -9,7 +9,7 @@ const ContentPane = () => {
   const { data } = useQuery('new-releases', () => client('browse/new-releases'));
 
   return (
-    <div className="px-8 overflow-y-auto content-spotify">
+    <div className="px-8 pb-6 overflow-y-auto content-spotify">
       {data ? (
         <>
           <AlbumList heading="Shortcuts" albums={data.albums.items} />

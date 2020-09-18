@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Album } from '../types/Album';
 import { Artist } from '../types/Artist';
+import { useResizeObserver } from '../utils/hooks';
 
 type PropTypes = {
   heading: string;
   albums: Album[];
 };
 
+const useGridColumnCount = (gridRef: React.RefObject<HTMLDivElement>) => {
+  // This will only work for changing the size of the grid and the content
+  // not changing. If children are added and removed, this won't update
+
+  const { width } = useResizeObserver(gridRef);
+  const [colCount, setColCount] = useState(0);
+
+  useEffect(() => {
+    if (gridRef.current) {
+      const gtlStyle = window.getComputedStyle(gridRef.current).gridTemplateColumns;
+      setColCount(gtlStyle.split(' ').length);
+    }
+  }, [gridRef, width]);
+
+  return colCount;
+};
+
 const AlbumList = ({ heading, albums }: PropTypes) => {
+  const gridEl = useRef<HTMLDivElement>(null);
+  const gridColumnCount = useGridColumnCount(gridEl);
+  const albumCount = albums.length;
+  const isMoreToShow = albumCount > gridColumnCount;
+
   return (
     <section className="mt-6">
       <header className="flex items-center justify-between">
         <a href="/">
           <h2 className="text-2xl font-bold text-white hover:underline">{heading}</h2>
         </a>
-        <a href="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
-          See All
-        </a>
+        {isMoreToShow ? <SeeAllLink /> : null}
       </header>
       <div
         className="grid grid-rows-1 mt-3 overflow-y-hidden gap-x-3 grid-cols-album-cards"
         style={{ gridAutoRows: '0px' }}
+        ref={gridEl}
       >
         {albums.map((album) => (
           <AlbumCard key={album.id} {...album} />
@@ -60,6 +82,12 @@ const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
 const ArtistLink = ({ artist }: { artist: Artist }) => (
   <a href="/" className="text-xs hover:underline">
     {artist.name}
+  </a>
+);
+
+const SeeAllLink = () => (
+  <a href="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
+    See All
   </a>
 );
 
