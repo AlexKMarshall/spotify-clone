@@ -12,7 +12,7 @@ const bootstrapAppData = async () => {
   const token = hash.access_token;
 
   if (token) {
-    const data = await client<User>('me', { token });
+    const data = (await client<User>('me', { token })) as User;
     user = { ...data, token };
   }
 
@@ -59,11 +59,11 @@ const useAuth = () => {
   return context;
 };
 
-const useClient = <T,>() => {
+const useClient = () => {
   const { user } = useAuth();
   const token = user?.token;
   return useCallback(
-    (endpoint: string, config: ClientConfig = {}) => {
+    <T,>(endpoint: string, config: ClientConfig = {}) => {
       if (token) {
         config.token = token;
       }

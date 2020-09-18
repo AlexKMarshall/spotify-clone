@@ -1,7 +1,7 @@
 import React from 'react';
 
-import albumCoverBad from './assets/images/album-cover-bad.jpg';
 import ContentPane from './components/ContentPane';
+import NowPlaying from './components/NowPlaying';
 import UserProfile from './components/UserProfile';
 
 const AuthenticatedApp = () => {
@@ -151,34 +151,7 @@ const AuthenticatedApp = () => {
         </div>
       </div>
       <div className="flex items-center justify-between flex-none px-5 border-t border-black h-22 bg-spotify-gray-700">
-        <div className="flex items-center">
-          <a href="/" className="flex-none">
-            <img src={albumCoverBad} alt="album cover" className="w-14 h-14" />
-          </a>
-          <div className="ml-3 truncate">
-            <div className="text-white truncate hover:underline">
-              <a href="/">Name of Song</a>
-            </div>
-            <div className="text-xs text-gray-500 truncate hover:underline hover:text-white">
-              <a href="/">Artist Name</a>
-            </div>
-          </div>
-          <button className="flex-none ml-3">
-            <svg
-              className="w-5 h-5 text-spotify-green"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Add to favorites</title>
-              <path
-                fillRule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </div>
+        <NowPlaying />
         <div className="flex flex-col justify-center flex-1 mx-6">
           <div className="flex justify-center">
             <button>

@@ -44,11 +44,18 @@ const client = async <T>(
       // refresh the page
       return Promise.reject({ message: 'Please re-authenticate' });
     }
-    const data = (await response.json()) as T;
-    if (response.ok) {
-      return data;
-    } else {
-      return Promise.reject(data);
+    if (response.status === 204) {
+      return null;
+    }
+    try {
+      const data = (await response.json()) as T;
+      if (response.ok) {
+        return data;
+      } else {
+        return Promise.reject(data);
+      }
+    } catch (error) {
+      return Promise.reject(error);
     }
   });
 };

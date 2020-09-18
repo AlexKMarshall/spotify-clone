@@ -5,8 +5,8 @@ import { AlbumListResponse } from '../types/Album';
 import AlbumList from './AlbumList';
 
 const ContentPane = () => {
-  const client = useClient<AlbumListResponse>();
-  const { data } = useQuery('new-releases', () => client('browse/new-releases'));
+  const client = useClient();
+  const { data } = useQuery('new-releases', () => client<AlbumListResponse>('browse/new-releases'));
 
   return (
     <div className="px-8 pb-6 overflow-y-auto content-spotify">
