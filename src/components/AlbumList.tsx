@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Album } from '../types/Album';
-import { Artist } from '../types/Artist';
 import { useResizeObserver } from '../utils/hooks';
+import ArtistLinkList from './ArtistLinkList';
 
 type PropTypes = {
   heading: string;
@@ -61,11 +61,7 @@ const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
       <h3 className="mt-4 overflow-x-hidden text-base font-bold tracking-wide text-white whitespace-no-wrap">{name}</h3>
     </a>
     <div>
-      {artists.map((artist) => (
-        <React.Fragment key={`${albumId}-${artist.id}`}>
-          <ArtistLink artist={artist} />{' '}
-        </React.Fragment>
-      ))}
+      <ArtistLinkList artists={artists} className="text-xs hover:underline" />
     </div>
     <button className="absolute bottom-0 right-0 flex items-center justify-center invisible w-10 h-10 mb-5 mr-5 rounded-full bg-spotify-green group-hover:visible">
       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -77,12 +73,6 @@ const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
       </svg>
     </button>
   </div>
-);
-
-const ArtistLink = ({ artist }: { artist: Artist }) => (
-  <a href="/" className="text-xs hover:underline">
-    {artist.name}
-  </a>
 );
 
 const SeeAllLink = () => (

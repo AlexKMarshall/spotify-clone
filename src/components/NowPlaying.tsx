@@ -43,8 +43,8 @@ const NowPlaying = () => {
         <div className="text-white truncate hover:underline">
           <a href="/">{track.name}</a>
         </div>
-        <div className="text-xs text-gray-500 truncate hover:underline hover:text-white">
-          <ArtistLinkList artists={track.artists} />
+        <div className="text-xs text-gray-500 truncate">
+          <ArtistLinkList artists={track.artists} className="hover:underline hover:text-white" />
         </div>
       </div>
       <button className="flex-none ml-3">
