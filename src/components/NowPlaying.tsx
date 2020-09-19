@@ -5,34 +5,31 @@ import { CurrentlyPlaying } from '../types/CurrentlyPlaying';
 import { RecentlyPlayedReponse } from '../types/PlayHistory';
 import { Track } from '../types/Track';
 import ArtistLinkList from './ArtistLinkList';
+import LoadingIndictator from './LoadingIndicator';
 
 const useCurrentOrLastPlaying = () => {
   const client = useClient();
-  const currentlyPlayingQuery = useQuery('currently-playing', async () => {
+  const query = useQuery('currentOrLastPlaying', async () => {
     const currentlyPlaying = await client<CurrentlyPlaying | null>('me/player/currently-playing');
-    if (currentlyPlaying) return currentlyPlaying.item;
-    return null;
-  });
-  const lastPlayedQuery = useQuery('last-played', async () => {
-    const recentlyPlayedResponse = (await client<RecentlyPlayedReponse>(
-      'me/player/recently-played',
-    )) as RecentlyPlayedReponse;
-    const simplifiedTrack = recentlyPlayedResponse.items[0].track;
-    const fullTrack = (await client<Track>(`tracks/${simplifiedTrack.id}`)) as Track;
-    return fullTrack;
+    if (currentlyPlaying) {
+      return currentlyPlaying.item;
+    } else {
+      const recentlyPlayedResponse = (await client<RecentlyPlayedReponse>(
+        'me/player/recently-played',
+      )) as RecentlyPlayedReponse;
+      const simplifiedTrack = recentlyPlayedResponse.items[0].track;
+      const fullTrack = (await client<Track>(`tracks/${simplifiedTrack.id}`)) as Track;
+      return fullTrack;
+    }
   });
 
-  // TODO tidy up this logic and include error handling
-  const isLoading = currentlyPlayingQuery.isLoading || (!currentlyPlayingQuery.data && lastPlayedQuery.isLoading);
-  const data = currentlyPlayingQuery.data || lastPlayedQuery.data;
-
-  return { ...currentlyPlayingQuery, isLoading, data };
+  return query;
 };
 
 const NowPlaying = () => {
   const { isLoading, data: track } = useCurrentOrLastPlaying();
 
-  if (isLoading || !track) return <div></div>;
+  if (isLoading || !track) return <LoadingIndictator />;
 
   return (
     <div className="flex items-center">

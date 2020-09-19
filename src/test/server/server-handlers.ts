@@ -2,6 +2,7 @@ import { MockedRequest, rest, restContext } from 'msw';
 import { DefaultRequestBodyType } from 'msw/lib/types/utils/handlers/requestHandler';
 import * as usersDB from '../data/users';
 import * as albumsDB from '../data/albums';
+import * as DB from '../data';
 import { AlbumListResponse } from '../../types/Album';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -28,6 +29,18 @@ const handlers = [
     };
 
     return res(ctx.status(200), ctx.json(albumListResponse));
+  }),
+  rest.get(`${apiUrl}/me/player/currently-playing`, async (req, res, ctx) => {
+    const token = getToken(req);
+    if (!token) {
+      return res(...missingTokenError(ctx));
+    }
+    const currentlyPlaying = await DB.currentlyPlaying.read();
+    if (!currentlyPlaying) {
+      return res(ctx.status(204));
+    } else {
+      return res(ctx.status(200), ctx.json({ item: currentlyPlaying }));
+    }
   }),
 ];
 
