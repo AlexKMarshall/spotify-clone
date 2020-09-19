@@ -1,4 +1,5 @@
 import { PlayHistory } from '../../types/PlayHistory';
+import { Track } from '../../types/Track';
 // Fake recently played store for test purposes
 import * as tracksDb from './tracks';
 
@@ -10,9 +11,14 @@ const store: RecentlyPlayedStore = {
   trackIds: [],
 };
 
-const set = async (trackIds: string[]) => {
-  store.trackIds = trackIds;
-  return read();
+const set = async (tracks: Track[]) => {
+  store.trackIds = tracks.map((track) => track.id);
+  tracks.forEach(async (track) => {
+    const existingTrack = await tracksDb.read(track.id);
+    if (!existingTrack) {
+      await tracksDb.create(track);
+    }
+  });
 };
 
 const read = async (): Promise<PlayHistory[]> => {

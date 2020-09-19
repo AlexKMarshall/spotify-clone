@@ -1,3 +1,4 @@
+import { Track } from '../../types/Track';
 // Fake currently playing store for test purposes
 import * as tracksDB from './tracks';
 type CurrentlyPlayingStore = {
@@ -6,9 +7,14 @@ type CurrentlyPlayingStore = {
 
 const currentlyPlayingStore: CurrentlyPlayingStore = { trackId: null };
 
-const set = async (trackId: string | null) => {
-  currentlyPlayingStore.trackId = trackId;
-  return read();
+const set = async (track: Track | null) => {
+  currentlyPlayingStore.trackId = track ? track.id : null;
+  if (track) {
+    const existingTrack = await tracksDB.read(track.id);
+    if (!existingTrack) {
+      await tracksDB.create(track);
+    }
+  }
 };
 
 const read = async () => {

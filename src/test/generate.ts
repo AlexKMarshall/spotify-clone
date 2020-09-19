@@ -12,7 +12,7 @@ const buildUser = (overrides?: Partial<User>): User => ({
 
 const buildArtist = (overrides?: Partial<Artist>): Artist => ({
   id: faker.random.uuid(),
-  name: faker.lorem.words(randBetween([1, 4])),
+  name: `${faker.lorem.words(randBetween([1, 3]))}${faker.random.words(randBetween([0, 2]))}`,
   ...overrides,
 });
 
@@ -25,7 +25,7 @@ const buildAlbum = (overrides?: Partial<Album>): Album => {
 
   return {
     id: faker.random.uuid(),
-    name: faker.lorem.words(randBetween([1, 6])),
+    name: faker.lorem.words(randBetween([2, 6])),
     images: imgSizes.map((imgSize) => ({ ...imgSize, url: faker.random.image() })),
     artists: Array(randBetween([1, 4]))
       .fill(0)

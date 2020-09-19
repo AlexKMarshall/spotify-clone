@@ -6,12 +6,12 @@ import NowPlaying from '../NowPlaying';
 
 it('displays the currently playing track if one available', async () => {
   const track = buildTrack();
-  db.tracks.create(track);
-  db.currentlyPlaying.set(track.id);
+  await db.currentlyPlaying.set(track);
 
   await render(<NowPlaying />);
 
-  expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument();
+  // The react query cache seems to be persisting between tests, so we wait for the query to settle
+  await waitFor(() => expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument());
   expect(screen.getByRole('img', { name: `${track.album.name} Cover` })).toHaveAttribute(
     'src',
     track.album.images[2].url,
@@ -23,9 +23,8 @@ it('displays the currently playing track if one available', async () => {
 
 it('displays the last played track if no track currently playing', async () => {
   const track = buildTrack();
-  db.tracks.create(track);
-  db.currentlyPlaying.set(null);
-  db.recentlyPlayed.set([track.id]);
+  await db.currentlyPlaying.set(null);
+  db.recentlyPlayed.set([track]);
 
   await render(<NowPlaying />);
 

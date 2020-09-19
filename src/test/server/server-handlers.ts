@@ -21,10 +21,10 @@ const handlers = [
     if (!token) {
       return res(...missingTokenError(ctx));
     }
-    const storedAlbums = await albumsDB.readAll();
+    const newReleases = await db.newReleases.read();
     const albumListResponse: AlbumListResponse = {
       albums: {
-        items: storedAlbums,
+        items: newReleases,
       },
     };
 
