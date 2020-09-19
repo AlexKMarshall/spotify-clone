@@ -2,11 +2,15 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom/extend-expect";
-import { server } from "./test/server";
+import '@testing-library/jest-dom/extend-expect';
+import { server } from './test/server';
+import { fullTeardown } from './test/data';
 
 beforeAll(() => server.listen());
 
-afterEach(() => server.resetHandlers());
+afterEach(async () => {
+  fullTeardown();
+  server.resetHandlers();
+});
 
 afterAll(() => server.close());

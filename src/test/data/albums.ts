@@ -1,5 +1,7 @@
+import { artists } from '.';
 // Fake albums store for test purposes
 import { Album } from '../../types/Album';
+import * as artistsDb from './artists';
 
 type AlbumStore = {
   [id: string]: Album;
@@ -9,6 +11,12 @@ const albumStore: AlbumStore = {};
 
 const create = async (album: Album) => {
   albumStore[album.id] = album;
+  album.artists.forEach(async (artist) => {
+    const foundArtist = await artistsDb.read(artist.id);
+    if (!foundArtist) {
+      artistsDb.create(artist);
+    }
+  });
   return album;
 };
 
