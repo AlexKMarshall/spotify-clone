@@ -8,7 +8,7 @@ import { fullTeardown } from './test/data';
 
 beforeAll(() => server.listen());
 
-afterEach(() => {
+afterEach(async () => {
   fullTeardown();
   server.resetHandlers();
 });

@@ -16,7 +16,7 @@ const read = async (id: string) => {
   return trackStore[id];
 };
 
-const teardown = () => {
+const teardown = async () => {
   for (const key in trackStore) {
     delete trackStore[key];
   }

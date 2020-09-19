@@ -41,6 +41,7 @@ const buildTrack = (overrides?: Partial<Track>): Track => {
     name: faker.lorem.words(randBetween([1, 6])),
     album: album,
     artists: album.artists,
+    ...overrides,
   };
 };
 
