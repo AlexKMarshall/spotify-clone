@@ -3,6 +3,7 @@ import { User } from '../types/User';
 import { Album } from '../types/Album';
 import { Artist } from '../types/Artist';
 import { Track } from '../types/Track';
+import { Player } from '../types/Player';
 
 const buildUser = (overrides?: Partial<User>): User => ({
   display_name: faker.name.findName(),
@@ -45,6 +46,14 @@ const buildTrack = (overrides?: Partial<Track>): Track => {
   };
 };
 
+const buildPlayer = (overrides?: Partial<Player>): Player => {
+  return {
+    is_playing: faker.random.boolean(),
+    progress_ms: randBetween([0, 1000 * 60 * 5]),
+    ...overrides,
+  };
+};
+
 const randBetween = ([min, max] = [1, 10]) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-export { buildUser, buildArtist, buildAlbum, buildTrack };
+export { buildUser, buildArtist, buildAlbum, buildTrack, buildPlayer };

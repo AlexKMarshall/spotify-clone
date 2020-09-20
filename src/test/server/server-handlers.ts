@@ -69,6 +69,14 @@ const handlers = [
     const isSavedTracks = await db.savedTracks.checkIsSaved(trackIds);
     return res(ctx.status(200), ctx.json(isSavedTracks));
   }),
+  rest.get(`${apiUrl}/me/player`, async (req, res, ctx) => {
+    const token = getToken(req);
+    if (!token) {
+      return res(...missingTokenError(ctx));
+    }
+    const player = await db.player.read();
+    return res(ctx.status(200), ctx.json(player));
+  }),
 ];
 
 const getToken = (req: MockedRequest<DefaultRequestBodyType>) =>

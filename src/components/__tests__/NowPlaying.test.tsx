@@ -42,8 +42,8 @@ it('displays the last played track if no track currently playing', async () => {
 
 it('shows saved icon if track is saved', async () => {
   const track = buildTrack();
-  db.currentlyPlaying.set(track);
-  db.savedTracks.set([track.id]);
+  await db.currentlyPlaying.set(track);
+  await db.savedTracks.set([track.id]);
 
   await render(<NowPlaying />);
 
