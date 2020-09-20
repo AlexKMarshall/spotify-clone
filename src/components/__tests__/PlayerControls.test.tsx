@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '../../test/test-utils';
 import { buildPlayer, buildTrack } from '../../test/generate';
 import * as db from '../../test/data';
 import PlayerControls from '../PlayerControls';
-import { randBetween } from '../../utils/random';
 
 it('shows pause button and track durations when track playing', async () => {
   const fiveMinutesThirty = 5 * 60 * 1000 + 30 * 1000;
@@ -47,4 +46,45 @@ it('shows play button and zero durations when player context is null', async () 
     expect(screen.getByLabelText(/current position/i)).toHaveTextContent('0:00');
   });
   expect(screen.getByLabelText(/total duration/i)).toHaveTextContent('0:00');
+});
+
+it('disables shuffle, prev, next and repeat buttons based on player context', async () => {
+  const player = buildPlayer({
+    actions: {
+      disallows: {
+        toggling_shuffle: true,
+        skipping_prev: true,
+        skipping_next: true,
+        toggling_repeat_context: true,
+      },
+    },
+  });
+  await db.player.set(player);
+
+  await render(<PlayerControls />);
+
+  await waitFor(() => {
+    expect(screen.getByRole('button', { name: /shuffle/i })).toBeDisabled();
+  });
+  expect(screen.getByRole('button', { name: /skip previous/i })).toBeDisabled();
+  expect(screen.getByRole('button', { name: /skip next/i })).toBeDisabled();
+  expect(screen.getByRole('button', { name: /repeat/i })).toBeDisabled();
+});
+
+it('enables shuffle, prev, next and repeat buttons based on player context', async () => {
+  const player = buildPlayer({
+    actions: {
+      disallows: {},
+    },
+  });
+  await db.player.set(player);
+
+  await render(<PlayerControls />);
+
+  await waitFor(() => {
+    expect(screen.getByRole('button', { name: /shuffle/i })).toBeEnabled();
+  });
+  expect(screen.getByRole('button', { name: /skip previous/i })).toBeEnabled();
+  expect(screen.getByRole('button', { name: /skip next/i })).toBeEnabled();
+  expect(screen.getByRole('button', { name: /repeat/i })).toBeEnabled();
 });

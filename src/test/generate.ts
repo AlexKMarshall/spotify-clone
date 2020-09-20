@@ -53,6 +53,7 @@ const buildPlayer = (overrides?: Partial<Player>): Player => {
     is_playing: faker.random.boolean(),
     progress_ms: randBetween([0, track.duration_ms]),
     item: buildTrack(),
+    actions: { disallows: {} },
     ...overrides,
   };
 };
