@@ -42,14 +42,17 @@ const buildTrack = (overrides?: Partial<Track>): Track => {
     name: faker.lorem.words(randBetween([1, 6])),
     album: album,
     artists: album.artists,
+    duration_ms: randBetween([5000, 1000 * 60 * 10]),
     ...overrides,
   };
 };
 
 const buildPlayer = (overrides?: Partial<Player>): Player => {
+  const track = buildTrack();
   return {
     is_playing: faker.random.boolean(),
-    progress_ms: randBetween([0, 1000 * 60 * 5]),
+    progress_ms: randBetween([0, track.duration_ms]),
+    item: buildTrack(),
     ...overrides,
   };
 };

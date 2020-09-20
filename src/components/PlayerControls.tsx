@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { useQuery } from 'react-query';
 import { useClient } from '../context/auth-context';
 import { NullPlayer, Player } from '../types/Player';
@@ -39,9 +40,13 @@ const PlayerControls = () => {
         </button>
       </div>
       <div className="flex items-center justify-center max-w-full mt-3">
-        <div className="text-xs text-gray-500">1:20</div>
+        <div className="text-xs text-gray-500">
+          <Duration durationMs={player.progress_ms} label="Current position" />
+        </div>
         <div className="w-full h-1 ml-3 bg-gray-500 rounded-lg xl:w-200"></div>
-        <div className="ml-3 text-xs text-gray-500">3:50</div>
+        <div className="ml-3 text-xs text-gray-500">
+          <Duration durationMs={player.item.duration_ms} label="Total duration" />
+        </div>
       </div>
     </div>
   );
@@ -87,5 +92,10 @@ const PauseIcon = () => (
     ></path>
   </svg>
 );
+
+const Duration = ({ durationMs, label }: { durationMs: number; label: string }) => {
+  const formattedDuration = format(new Date(durationMs), 'm:ss');
+  return <span aria-label={label}>{formattedDuration}</span>;
+};
 
 export default PlayerControls;
