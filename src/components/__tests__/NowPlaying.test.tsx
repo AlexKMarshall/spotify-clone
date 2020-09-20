@@ -39,3 +39,24 @@ it('displays the last played track if no track currently playing', async () => {
     expect(screen.getByRole('link', { name: artist.name })).toBeInTheDocument();
   });
 });
+
+it('shows saved icon if track is saved', async () => {
+  const track = buildTrack();
+  db.currentlyPlaying.set(track);
+  db.savedTracks.set([track.id]);
+
+  await render(<NowPlaying />);
+
+  const savedIcon = await screen.findByText(/saved/i);
+  expect(savedIcon).toBeInTheDocument();
+});
+
+it('shows un-saved icon if track is not saved', async () => {
+  const track = buildTrack();
+  db.currentlyPlaying.set(track);
+
+  await render(<NowPlaying />);
+
+  const unsavedIcon = await screen.findByText(/not in your library/i);
+  expect(unsavedIcon).toBeInTheDocument();
+});

@@ -28,6 +28,15 @@ const useCurrentOrLastPlaying = () => {
 
 const NowPlaying = () => {
   const { isLoading, data: track } = useCurrentOrLastPlaying();
+  const client = useClient();
+  const { data: isSaved } = useQuery(
+    ['tracks-contains', track?.id],
+    async () => {
+      const [isSaved] = (await client<boolean[]>(`me/tracks/contains?ids=${track?.id}`)) as boolean[];
+      return isSaved;
+    },
+    { enabled: track },
+  );
 
   if (isLoading || !track) return <LoadingIndictator />;
 
@@ -45,22 +54,48 @@ const NowPlaying = () => {
         </div>
       </div>
       <button className="flex-none ml-3">
-        <svg
-          className="w-5 h-5 text-spotify-green"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Add to favorites</title>
-          <path
-            fillRule="evenodd"
-            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
+        <FavoriteIcon isSaved={isSaved} />
       </button>
     </div>
   );
 };
+
+const FavoriteIcon = ({ isSaved = false }: { isSaved?: boolean }) => {
+  return isSaved ? <SolidHeart title="Saved" /> : <OutlineHeart title="Not in your library" />;
+};
+
+const SolidHeart = ({ title }: { title: string }) => (
+  <svg
+    className="w-5 h-5 text-spotify-green"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title>{title}</title>
+    <path
+      fillRule="evenodd"
+      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+      clipRule="evenodd"
+    ></path>
+  </svg>
+);
+
+const OutlineHeart = ({ title }: { title: string }) => (
+  <svg
+    className="w-5 h-5 text-gray-500"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title>{title}</title>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+    ></path>
+  </svg>
+);
 
 export default NowPlaying;

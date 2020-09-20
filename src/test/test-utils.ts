@@ -4,17 +4,13 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { buildAlbum, buildUser } from './generate';
+import { buildUser } from './generate';
 import * as usersDB from './data/users';
-import * as artistsDB from './data/artists';
-import * as albumsDB from './data/albums';
 import AppProviders from '../context';
 import { User } from '../types/User';
-import { Album } from '../types/Album';
-import { Artist } from '../types/Artist';
 
 type RenderOptions = {
-  user?: User;
+  user?: User | null;
 };
 
 const render = async (ui: React.ReactElement, { user, ...renderOptions }: RenderOptions & RtlRenderOptions = {}) => {

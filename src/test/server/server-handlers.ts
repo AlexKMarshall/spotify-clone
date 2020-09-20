@@ -60,6 +60,15 @@ const handlers = [
     const track = await db.tracks.read(trackId);
     return res(ctx.status(200), ctx.json({ ...track }));
   }),
+  rest.get(`${apiUrl}/me/tracks/contains`, async (req, res, ctx) => {
+    const token = getToken(req);
+    if (!token) {
+      return res(...missingTokenError(ctx));
+    }
+    const trackIds = req.url.searchParams.get('ids')?.split(',') || [];
+    const isSavedTracks = await db.savedTracks.checkIsSaved(trackIds);
+    return res(ctx.status(200), ctx.json(isSavedTracks));
+  }),
 ];
 
 const getToken = (req: MockedRequest<DefaultRequestBodyType>) =>
