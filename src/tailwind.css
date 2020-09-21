@@ -21,3 +21,24 @@
   border-radius: 8px;
   background-color: #535353;
 }
+
+progress::-webkit-progress-bar {
+  border-radius: 50rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: #edf2f7;
+}
+
+progress:hover::-webkit-progress-value {
+  background-color: #1db954;
+}
+
+progress:hover::-webkit-progress-value::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  position: absolute;
+  border-radius: 100%;
+}

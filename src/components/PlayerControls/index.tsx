@@ -7,7 +7,7 @@ import { PauseIcon, PlayIcon, RepeatIcon, SkipNextIcon, SkipPrevIcon, SuffleIcon
 
 const PlayerControls = () => {
   const client = useClient();
-  const { data } = useQuery('player', () => client<Player | null>('me/player'));
+  const { data } = useQuery('player', () => client<Player | null>('me/player'), { refetchInterval: 1000 });
 
   const player = data || NullPlayer;
 
@@ -32,7 +32,7 @@ const PlayerControls = () => {
         <div className="text-xs text-gray-500">
           <Duration durationMs={player.progress_ms} label="Current position" />
         </div>
-        <div className="w-full h-1 ml-3 bg-gray-500 rounded-lg xl:w-200"></div>
+        <ProgressBar max={player.item.duration_ms} value={player.progress_ms} />
         <div className="ml-3 text-xs text-gray-500">
           <Duration durationMs={player.item.duration_ms} label="Total duration" />
         </div>
@@ -53,6 +53,10 @@ const ControlButton: React.FC<ControlButtonProps> = ({ isDisabled = false, child
 
 const PlayPauseButton = ({ isPlaying }: { isPlaying: boolean }) => (
   <button className="ml-8">{isPlaying ? <PauseIcon /> : <PlayIcon />}</button>
+);
+
+const ProgressBar = ({ max, value }: { max: number; value: number }) => (
+  <progress max={max} value={value} className="w-full h-1 ml-3 rounded-lg xl:w-200"></progress>
 );
 
 const Duration = ({ durationMs, label }: { durationMs: number; label: string }) => {
