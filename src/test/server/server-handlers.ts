@@ -77,6 +77,30 @@ const handlers = [
     const player = await db.player.read();
     return res(ctx.status(200), ctx.json(player));
   }),
+  rest.put(`${apiUrl}/me/player/pause`, async (req, res, ctx) => {
+    const token = getToken(req);
+    if (!token) {
+      return res(...missingTokenError(ctx));
+    }
+    const player = await db.player.read();
+    if (player) {
+      const pausedPlayer = { ...player, is_playing: false };
+      db.player.set(pausedPlayer);
+    }
+    return res(ctx.status(204));
+  }),
+  rest.put(`${apiUrl}/me/player/play`, async (req, res, ctx) => {
+    const token = getToken(req);
+    if (!token) {
+      return res(...missingTokenError(ctx));
+    }
+    const player = await db.player.read();
+    if (player) {
+      const pausedPlayer = { ...player, is_playing: true };
+      db.player.set(pausedPlayer);
+    }
+    return res(ctx.status(204));
+  }),
 ];
 
 const getToken = (req: MockedRequest<DefaultRequestBodyType>) =>

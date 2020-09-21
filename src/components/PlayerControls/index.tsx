@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { useMutation, useQuery } from 'react-query';
+import { queryCache, useMutation, useQuery } from 'react-query';
 import { useClient } from '../../context/auth-context';
 import { NullPlayer, PlayerResponse } from '../../types/Player';
 import { PauseIcon, PlayIcon, RepeatIcon, SkipNextIcon, SkipPrevIcon, SuffleIcon } from './icons';
@@ -9,8 +9,36 @@ const PlayerControls = () => {
   const pollingInterval = 1000;
   const client = useClient();
   const { data } = useQuery('player', () => client<PlayerResponse>('me/player'), { refetchInterval: pollingInterval });
-  const [triggerPlay] = useMutation(() => client('me/player/play', { method: 'PUT' }));
-  const [triggerPause] = useMutation(() => client('me/player/pause', { method: 'PUT' }));
+  const [triggerPlay] = useMutation(() => client('me/player/play', { method: 'PUT' }), {
+    onMutate: () => {
+      queryCache.cancelQueries('player');
+      const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
+      queryCache.setQueryData('player', () => {
+        if (previousPlayer) {
+          return { ...previousPlayer, is_playing: true };
+        }
+      });
+      return () => queryCache.setQueryData('player', previousPlayer);
+    },
+    onSettled: () => {
+      queryCache.invalidateQueries('player');
+    },
+  });
+  const [triggerPause] = useMutation(() => client('me/player/pause', { method: 'PUT' }), {
+    onMutate: () => {
+      queryCache.cancelQueries('player');
+      const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
+      queryCache.setQueryData('player', () => {
+        if (previousPlayer) {
+          return { ...previousPlayer, is_playing: false };
+        }
+      });
+      return () => queryCache.setQueryData('player', previousPlayer);
+    },
+    onSettled: () => {
+      queryCache.invalidateQueries('player');
+    },
+  });
 
   const togglePlaying = () => {
     if (player.is_playing) {

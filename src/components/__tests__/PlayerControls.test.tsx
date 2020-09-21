@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '../../test/test-utils';
+import user from '@testing-library/user-event';
 import { buildPlayer, buildTrack } from '../../test/generate';
 import * as db from '../../test/data';
 import PlayerControls from '../PlayerControls';
@@ -19,6 +20,19 @@ it('shows pause button and track durations when track playing', async () => {
   expect(screen.getByLabelText(/total duration/i)).toHaveTextContent('5:30');
 });
 
+it('should pause playback when pause button pressed', async () => {
+  await db.player.set(buildPlayer({ is_playing: true }));
+
+  await render(<PlayerControls />);
+  const pauseButton = await screen.findByRole('button', { name: /pause/i });
+  expect(pauseButton).toBeInTheDocument();
+
+  await user.click(pauseButton);
+
+  const playButton = await screen.findByRole('button', { name: /play/i });
+  expect(playButton).toBeInTheDocument();
+});
+
 it('shows play button and durations when track is paused', async () => {
   const fiveMinutesThirty = 5 * 60 * 1000 + 30 * 1000;
   const twentyFiveSeconds = 25 * 1000;
@@ -31,6 +45,19 @@ it('shows play button and durations when track is paused', async () => {
   expect(playButton).toBeEnabled();
   expect(screen.getByLabelText(/current position/i)).toHaveTextContent('0:25');
   expect(screen.getByLabelText(/total duration/i)).toHaveTextContent('5:30');
+});
+
+it('should restart playback when play button pressed', async () => {
+  await db.player.set(buildPlayer({ is_playing: true }));
+
+  await render(<PlayerControls />);
+  const pauseButton = await screen.findByRole('button', { name: /play/i });
+  expect(pauseButton).toBeInTheDocument();
+
+  await user.click(pauseButton);
+
+  const playButton = await screen.findByRole('button', { name: /pause/i });
+  expect(playButton).toBeInTheDocument();
 });
 
 it('shows play button and zero durations when player context is null', async () => {
