@@ -32,3 +32,5 @@ export const NullPlayer: Player = {
     },
   },
 };
+
+export type PlayerResponse = Player | null;

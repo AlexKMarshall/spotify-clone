@@ -15,13 +15,7 @@ export const SkipNextIcon = () => (
 );
 
 export const PlayIcon = () => (
-  <svg
-    className="w-8 h-8 text-gray-400 hover:text-white"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <title>Play</title>
     <path
       strokeLinecap="round"
@@ -34,13 +28,7 @@ export const PlayIcon = () => (
 );
 
 export const PauseIcon = () => (
-  <svg
-    className="w-8 h-8 text-gray-400 hover:text-white"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <title>Pause</title>
     <path
       strokeLinecap="round"
