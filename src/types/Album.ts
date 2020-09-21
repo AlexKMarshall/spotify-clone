@@ -7,6 +7,13 @@ export type Album = {
   artists: Artist[];
 };
 
+export const NullAlbum = {
+  id: '',
+  name: '',
+  images: [],
+  artists: [],
+};
+
 type AlbumImage = {
   height: number;
   url: string;

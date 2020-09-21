@@ -6,6 +6,7 @@ import * as currentlyPlaying from './currently-playing';
 import * as recentlyPlayed from './recently-played';
 import * as newReleases from './new-releases';
 import * as savedTracks from './saved-tracks';
+import * as player from './player';
 
 const fullTeardown = () => {
   albums.teardown();
@@ -16,6 +17,18 @@ const fullTeardown = () => {
   recentlyPlayed.teardown();
   newReleases.teardown();
   savedTracks.teardown();
+  player.teardown();
 };
 
-export { albums, artists, users, tracks, currentlyPlaying, recentlyPlayed, newReleases, savedTracks, fullTeardown };
+export {
+  albums,
+  artists,
+  users,
+  tracks,
+  currentlyPlaying,
+  recentlyPlayed,
+  newReleases,
+  savedTracks,
+  player,
+  fullTeardown,
+};
