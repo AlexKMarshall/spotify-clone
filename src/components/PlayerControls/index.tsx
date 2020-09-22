@@ -1,13 +1,52 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { useQuery } from 'react-query';
+import { queryCache, useMutation, useQuery } from 'react-query';
 import { useClient } from '../../context/auth-context';
-import { NullPlayer, Player } from '../../types/Player';
+import { NullPlayer, PlayerResponse } from '../../types/Player';
 import { PauseIcon, PlayIcon, RepeatIcon, SkipNextIcon, SkipPrevIcon, SuffleIcon } from './icons';
 
 const PlayerControls = () => {
+  const pollingInterval = 1000;
   const client = useClient();
-  const { data } = useQuery('player', () => client<Player | null>('me/player'), { refetchInterval: 1000 });
+  const { data } = useQuery('player', () => client<PlayerResponse>('me/player'), { refetchInterval: pollingInterval });
+  const [triggerPlay] = useMutation(() => client('me/player/play', { method: 'PUT' }), {
+    onMutate: () => {
+      queryCache.cancelQueries('player');
+      const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
+      queryCache.setQueryData('player', () => {
+        if (previousPlayer) {
+          return { ...previousPlayer, is_playing: true };
+        }
+      });
+      return () => queryCache.setQueryData('player', previousPlayer);
+    },
+    onSettled: () => {
+      queryCache.invalidateQueries('player');
+    },
+  });
+  const [triggerPause] = useMutation(() => client('me/player/pause', { method: 'PUT' }), {
+    onMutate: () => {
+      queryCache.cancelQueries('player');
+      const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
+      queryCache.setQueryData('player', () => {
+        if (previousPlayer) {
+          return { ...previousPlayer, is_playing: false };
+        }
+      });
+      return () => queryCache.setQueryData('player', previousPlayer);
+    },
+    onSettled: () => {
+      queryCache.invalidateQueries('player');
+    },
+  });
+
+  const togglePlaying = () => {
+    if (player.is_playing) {
+      triggerPause();
+    } else {
+      triggerPlay();
+    }
+  };
 
   const player = data || NullPlayer;
 
@@ -20,7 +59,7 @@ const PlayerControls = () => {
         <ControlButton isDisabled={player.actions.disallows.skipping_prev}>
           <SkipPrevIcon />
         </ControlButton>
-        <PlayPauseButton isPlaying={player.is_playing} />
+        <PlayPauseButton isPlaying={player.is_playing} onClick={togglePlaying} />
         <ControlButton isDisabled={player.actions.disallows.skipping_next}>
           <SkipNextIcon />
         </ControlButton>
@@ -51,8 +90,16 @@ const ControlButton: React.FC<ControlButtonProps> = ({ isDisabled = false, child
   </button>
 );
 
-const PlayPauseButton = ({ isPlaying }: { isPlaying: boolean }) => (
-  <button className="ml-8">{isPlaying ? <PauseIcon /> : <PlayIcon />}</button>
+const PlayPauseButton = ({
+  isPlaying,
+  onClick,
+}: {
+  isPlaying: boolean;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}) => (
+  <button className="ml-8 'text-gray-400 hover:text-white" onClick={onClick}>
+    {isPlaying ? <PauseIcon /> : <PlayIcon />}
+  </button>
 );
 
 const ProgressBar = ({ max, value }: { max: number; value: number }) => (
