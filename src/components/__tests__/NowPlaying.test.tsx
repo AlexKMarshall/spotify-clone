@@ -10,8 +10,7 @@ it('displays the currently playing track if one available', async () => {
 
   await render(<NowPlaying />);
 
-  // The react query cache seems to be persisting between tests, so we wait for the query to settle
-  await waitFor(() => expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument());
+  expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument();
   expect(screen.getByRole('img', { name: `${track.album.name} Cover` })).toHaveAttribute(
     'src',
     track.album.images[2].url,
@@ -28,8 +27,6 @@ it('displays the last played track if no track currently playing', async () => {
 
   await render(<NowPlaying />);
 
-  // The react query cache seems to be persisting between tests, so we wait for the query to settle
-  await waitFor(() => expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument());
   expect(screen.getByRole('link', { name: track.name })).toBeInTheDocument();
   expect(screen.getByRole('img', { name: `${track.album.name} Cover` })).toHaveAttribute(
     'src',
@@ -47,8 +44,7 @@ it('shows saved icon if track is saved', async () => {
 
   await render(<NowPlaying />);
 
-  const savedIcon = await screen.findByText(/saved/i);
-  expect(savedIcon).toBeInTheDocument();
+  expect(screen.getByText(/saved/i)).toBeInTheDocument();
 });
 
 it('shows un-saved icon if track is not saved', async () => {
@@ -57,6 +53,5 @@ it('shows un-saved icon if track is not saved', async () => {
 
   await render(<NowPlaying />);
 
-  const unsavedIcon = await screen.findByText(/not in your library/i);
-  expect(unsavedIcon).toBeInTheDocument();
+  expect(screen.getByText(/not in your library/i)).toBeInTheDocument();
 });

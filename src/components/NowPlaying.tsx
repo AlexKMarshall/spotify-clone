@@ -29,7 +29,7 @@ const useCurrentOrLastPlaying = () => {
 const NowPlaying = () => {
   const { isLoading, data: track } = useCurrentOrLastPlaying();
   const client = useClient();
-  const { data: isSaved } = useQuery(
+  const { data: isSaved, ...savedQuery } = useQuery(
     ['tracks-contains', track?.id],
     async () => {
       const [isSaved] = (await client<boolean[]>(`me/tracks/contains?ids=${track?.id}`)) as boolean[];
@@ -38,7 +38,7 @@ const NowPlaying = () => {
     { enabled: track },
   );
 
-  if (isLoading || !track) return <LoadingIndictator />;
+  if (isLoading || savedQuery.isLoading || !track) return <LoadingIndictator />;
 
   return (
     <div className="flex items-center">
