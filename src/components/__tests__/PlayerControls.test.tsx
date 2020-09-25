@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '../../test/test-utils';
 import user from '@testing-library/user-event';
+
 import { buildPlayer, buildTrack } from '../../test/generate';
 import * as db from '../../test/data';
 import PlayerControls from '../PlayerControls';
@@ -14,6 +15,7 @@ it('shows pause button and track durations when track playing', async () => {
   await render(<PlayerControls />);
 
   const pauseButton = await screen.findByRole('button', { name: /pause/i });
+
   expect(pauseButton).toBeInTheDocument();
   expect(pauseButton).toBeEnabled();
   expect(screen.getByLabelText(/current position/i)).toHaveTextContent('0:25');
@@ -41,6 +43,7 @@ it('shows play button and durations when track is paused', async () => {
   await render(<PlayerControls />);
 
   const playButton = await screen.findByRole('button', { name: /play/i });
+
   expect(playButton).toBeInTheDocument();
   expect(playButton).toBeEnabled();
   expect(screen.getByLabelText(/current position/i)).toHaveTextContent('0:25');
@@ -48,16 +51,17 @@ it('shows play button and durations when track is paused', async () => {
 });
 
 it('should restart playback when play button pressed', async () => {
-  await db.player.set(buildPlayer({ is_playing: true }));
+  await db.player.set(buildPlayer({ is_playing: false }));
 
   await render(<PlayerControls />);
-  const pauseButton = await screen.findByRole('button', { name: /play/i });
-  expect(pauseButton).toBeInTheDocument();
 
-  await user.click(pauseButton);
-
-  const playButton = await screen.findByRole('button', { name: /pause/i });
+  const playButton = await screen.findByRole('button', { name: /play/i });
   expect(playButton).toBeInTheDocument();
+
+  await user.click(playButton);
+
+  const pauseButton = await screen.findByRole('button', { name: /pause/i });
+  expect(pauseButton).toBeInTheDocument();
 });
 
 it('shows play button and zero durations when player context is null', async () => {
