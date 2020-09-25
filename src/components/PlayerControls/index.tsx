@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { queryCache, useMutation, useQuery } from 'react-query';
 import { useClient } from '../../context/auth-context';
@@ -7,14 +7,15 @@ import { PauseIcon, PlayIcon, RepeatIcon, SkipNextIcon, SkipPrevIcon, SuffleIcon
 import LoadingIndictator from '../LoadingIndicator';
 
 const PlayerControls = () => {
-  const pollingInterval = 1000;
+  const [pollingInterval, setPollingInterval] = useState<number | false>(1000);
   const client = useClient();
   const { isLoading, data } = useQuery('player', () => client<PlayerResponse>('me/player'), {
     refetchInterval: pollingInterval,
   });
-  const [triggerPlay] = useMutation(() => client('me/player/play', { method: 'PUT' }), {
+  const [triggerPlay, { isLoading: isPlayLoading }] = useMutation(() => client('me/player/play', { method: 'PUT' }), {
     onMutate: () => {
       queryCache.cancelQueries('player');
+      setPollingInterval(false);
       const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
       queryCache.setQueryData('player', () => {
         if (previousPlayer) {
@@ -23,25 +24,30 @@ const PlayerControls = () => {
       });
       return () => queryCache.setQueryData('player', previousPlayer);
     },
-    onSettled: () => {
+    onSuccess: () => {
+      setPollingInterval(1000);
       queryCache.invalidateQueries('player');
     },
   });
-  const [triggerPause] = useMutation(() => client('me/player/pause', { method: 'PUT' }), {
-    onMutate: () => {
-      queryCache.cancelQueries('player');
-      const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
-      queryCache.setQueryData('player', () => {
-        if (previousPlayer) {
-          return { ...previousPlayer, is_playing: false };
-        }
-      });
-      return () => queryCache.setQueryData('player', previousPlayer);
+  const [triggerPause, { isLoading: isPauseLoading }] = useMutation(
+    () => client('me/player/pause', { method: 'PUT' }),
+    {
+      onMutate: () => {
+        queryCache.cancelQueries('player');
+        setPollingInterval(false);
+        const previousPlayer = queryCache.getQueryData<PlayerResponse>('player');
+        queryCache.setQueryData('player', () => {
+          if (previousPlayer) {
+            return { ...previousPlayer, is_playing: false };
+          }
+        });
+        return () => queryCache.setQueryData('player', previousPlayer);
+      },
+      onSuccess: () => {
+        queryCache.invalidateQueries('player');
+      },
     },
-    onSettled: () => {
-      queryCache.invalidateQueries('player');
-    },
-  });
+  );
 
   const togglePlaying = () => {
     if (player.is_playing) {
@@ -70,7 +76,11 @@ const PlayerControls = () => {
         <ControlButton isDisabled={player.actions.disallows.skipping_prev}>
           <SkipPrevIcon />
         </ControlButton>
-        <PlayPauseButton isPlaying={player.is_playing} onClick={togglePlaying} />
+        <PlayPauseButton
+          isLoading={isPlayLoading || isPauseLoading}
+          isPlaying={player.is_playing}
+          onClick={togglePlaying}
+        />
         <ControlButton isDisabled={player.actions.disallows.skipping_next}>
           <SkipNextIcon />
         </ControlButton>
@@ -102,16 +112,21 @@ const ControlButton: React.FC<ControlButtonProps> = ({ isDisabled = false, child
 );
 
 const PlayPauseButton = ({
+  isLoading,
   isPlaying,
   onClick,
 }: {
+  isLoading: boolean;
   isPlaying: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}) => (
-  <button className="ml-8 'text-gray-400 hover:text-white" onClick={onClick}>
-    {isPlaying ? <PauseIcon /> : <PlayIcon />}
-  </button>
-);
+}) => {
+  if (isLoading) return <LoadingIndictator />;
+  return (
+    <button className="ml-8 'text-gray-400 hover:text-white" onClick={onClick}>
+      {isPlaying ? <PauseIcon /> : <PlayIcon />}
+    </button>
+  );
+};
 
 const ProgressBar = ({ max, value }: { max: number; value: number }) => (
   <progress max={max} value={value} className="w-full h-1 ml-3 rounded-lg xl:w-200"></progress>
