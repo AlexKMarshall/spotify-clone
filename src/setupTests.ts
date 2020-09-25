@@ -5,12 +5,14 @@
 import '@testing-library/jest-dom/extend-expect';
 import { server } from './test/server';
 import { fullTeardown } from './test/data';
+import { queryCache } from 'react-query';
 
 beforeAll(() => server.listen());
 
 afterEach(async () => {
   fullTeardown();
   server.resetHandlers();
+  queryCache.clear();
 });
 
 afterAll(() => server.close());

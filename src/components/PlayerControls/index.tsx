@@ -4,11 +4,14 @@ import { queryCache, useMutation, useQuery } from 'react-query';
 import { useClient } from '../../context/auth-context';
 import { NullPlayer, PlayerResponse } from '../../types/Player';
 import { PauseIcon, PlayIcon, RepeatIcon, SkipNextIcon, SkipPrevIcon, SuffleIcon } from './icons';
+import LoadingIndictator from '../LoadingIndicator';
 
 const PlayerControls = () => {
   const pollingInterval = 1000;
   const client = useClient();
-  const { data } = useQuery('player', () => client<PlayerResponse>('me/player'), { refetchInterval: pollingInterval });
+  const { isLoading, data } = useQuery('player', () => client<PlayerResponse>('me/player'), {
+    refetchInterval: pollingInterval,
+  });
   const [triggerPlay] = useMutation(() => client('me/player/play', { method: 'PUT' }), {
     onMutate: () => {
       queryCache.cancelQueries('player');
@@ -49,6 +52,14 @@ const PlayerControls = () => {
   };
 
   const player = data || NullPlayer;
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center flex-1 mx-6">
+        <LoadingIndictator />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-center flex-1 mx-6">
