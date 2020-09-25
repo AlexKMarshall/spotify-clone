@@ -1,6 +1,6 @@
 import React from 'react';
 import { buildTrack } from '../../test/generate';
-import { render, screen, waitFor } from '../../test/test-utils';
+import { render, screen } from '../../test/test-utils';
 import * as db from '../../test/data';
 import NowPlaying from '../NowPlaying';
 
