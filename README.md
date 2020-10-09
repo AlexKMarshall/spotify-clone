@@ -4,7 +4,7 @@
 
 View in production: https://romantic-lichterman-d73293.netlify.app/
 
-This is a work in process clone of the Spotify Web Player
+This is a work in progress clone of the Spotify Web Player
 
 ## Purpose
 
