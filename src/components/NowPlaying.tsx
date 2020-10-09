@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import { useClient } from '../context/auth-context';
 import { CurrentlyPlaying } from '../types/CurrentlyPlaying';
 import { RecentlyPlayedReponse } from '../types/PlayHistory';
@@ -42,12 +43,12 @@ const NowPlaying = () => {
 
   return (
     <div className="flex items-center">
-      <a href="/" className="flex-none">
+      <Link to="/" className="flex-none">
         <img src={track.album.images[2].url} alt={`${track.album.name} Cover`} className="w-14 h-14" />
-      </a>
+      </Link>
       <div className="ml-3 truncate">
         <div className="text-white truncate hover:underline">
-          <a href="/">{track.name}</a>
+          <Link to="/">{track.name}</Link>
         </div>
         <div className="text-xs text-gray-500 truncate">
           <ArtistLinkList artists={track.artists} className="hover:underline hover:text-white" />

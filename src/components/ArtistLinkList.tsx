@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Artist } from '../types/Artist';
 
 const ArtistLinkList = ({ artists, className }: { artists: Artist[]; className?: string }) => (
@@ -17,9 +18,9 @@ const ListSeparator = ({ index, array, separator }: { index: number; array: Arra
 );
 
 const ArtistLink = ({ artist, className }: { artist: Artist; className?: string }) => (
-  <a href="/" className={className}>
+  <Link to="/" className={className}>
     {artist.name}
-  </a>
+  </Link>
 );
 
 export default ArtistLinkList;
