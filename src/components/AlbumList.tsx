@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Album } from '../types/Album';
 import { useResizeObserver } from '../utils/hooks';
 import ArtistLinkList from './ArtistLinkList';
@@ -34,9 +35,9 @@ const AlbumList = ({ heading, albums }: PropTypes) => {
   return (
     <section className="mt-6">
       <header className="flex items-center justify-between">
-        <a href="/">
+        <Link to="/">
           <h2 className="text-2xl font-bold text-white hover:underline">{heading}</h2>
-        </a>
+        </Link>
         {isMoreToShow ? <SeeAllLink /> : null}
       </header>
       <div
@@ -54,12 +55,12 @@ const AlbumList = ({ heading, albums }: PropTypes) => {
 
 const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
   <div className="relative p-5 rounded-md bg-spotify-gray-600 group">
-    <a href="/">
+    <Link to="/">
       <img src={images[1].url} alt={`${name} Cover`} />
-    </a>
-    <a href="/">
+    </Link>
+    <Link to="/">
       <h3 className="mt-4 overflow-x-hidden text-base font-bold tracking-wide text-white whitespace-no-wrap">{name}</h3>
-    </a>
+    </Link>
     <div>
       <ArtistLinkList artists={artists} className="text-xs hover:underline" />
     </div>
@@ -76,9 +77,9 @@ const AlbumCard = ({ id: albumId, name, images, artists }: Album) => (
 );
 
 const SeeAllLink = () => (
-  <a href="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
+  <Link to="/" className="text-xs font-bold tracking-wider uppercase hover:underline">
     See All
-  </a>
+  </Link>
 );
 
 export default AlbumList;

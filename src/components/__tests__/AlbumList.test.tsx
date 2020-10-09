@@ -1,6 +1,7 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { buildAlbum } from '../../test/generate';
-import { rtlRender, screen } from '../../test/test-utils';
+import { render, rtlRender, screen } from '../../test/test-utils';
 import { randBetween } from '../../utils/random';
 import faker from 'faker';
 import AlbumList from '../AlbumList';
@@ -10,7 +11,11 @@ it('should render list of albums cards with heading', () => {
   const albums = Array(randBetween([1, 5]))
     .fill(0)
     .map(() => buildAlbum());
-  rtlRender(<AlbumList heading={heading} albums={albums} />);
+  rtlRender(
+    <MemoryRouter>
+      <AlbumList heading={heading} albums={albums} />
+    </MemoryRouter>,
+  );
 
   expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
 
@@ -29,7 +34,12 @@ it('should not render a see all link if all albums already displayed', () => {
 
   const normalSizeWrapper: React.FC = ({ children }) => <div style={{ width: '1000px' }}>{children}</div>;
 
-  rtlRender(<AlbumList albums={albums} heading={heading} />, { wrapper: normalSizeWrapper });
+  rtlRender(
+    <MemoryRouter>
+      <AlbumList albums={albums} heading={heading} />
+    </MemoryRouter>,
+    { wrapper: normalSizeWrapper },
+  );
 
   expect(screen.queryByRole('link', { name: /see all/i })).not.toBeInTheDocument();
 });
@@ -42,7 +52,12 @@ it('should render a see all link if there are more albums than fit on screen', (
 
   const normalSizeWrapper: React.FC = ({ children }) => <div style={{ width: '1000px' }}>{children}</div>;
 
-  rtlRender(<AlbumList albums={albums} heading={heading} />, { wrapper: normalSizeWrapper });
+  rtlRender(
+    <MemoryRouter>
+      <AlbumList albums={albums} heading={heading} />
+    </MemoryRouter>,
+    { wrapper: normalSizeWrapper },
+  );
 
   expect(screen.getByRole('link', { name: /see all/i })).toBeInTheDocument();
 });
